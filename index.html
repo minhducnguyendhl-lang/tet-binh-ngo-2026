@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TẾT BÍNH NGỌ 2026 - VẠN SỰ NHƯ Ý</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;600;800&family=Dancing+Script:wght@700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --tet-red: #D6001C;
+            --tet-gold: #FFD700;
+            --tet-cream: #FFFDD0;
+            --bg-pattern: repeating-linear-gradient(45deg, #c40018, #c40018 10px, #b30016 10px, #b30016 20px);
+            --panel-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #4a0005;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background: var(--bg-pattern);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            padding-bottom: 90px; /* Space for nav */
+        }
+
+        /* --- UI UTILS --- */
+        .font-script { font-family: 'Dancing Script', cursive; }
+        .font-heritage { font-family: 'Playfair Display', serif; }
+        .font-pixel { font-family: 'VT323', monospace; font-size: 1.5rem; }
+        .text-red { color: var(--tet-red); }
+        .text-gold { color: #d4af37; text-shadow: 1px 1px 0 #fff; }
+        
+        .btn-tet {
+            background: linear-gradient(to bottom, #FFD700, #FFA500);
+            border: 2px solid #fff;
+            color: #d60000;
+            padding: 10px 20px;
+            font-weight: 800;
+            border-radius: 25px;
+            box-shadow: 0 4px 0 #b84c00;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .btn-tet:active { transform: translateY(4px); box-shadow: none; }
+        
+        .panel {
+            background: var(--panel-bg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            border: 2px solid var(--tet-gold);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #fff; border-top: 3px solid var(--tet-red);
+            display: flex; justify-content: space-around; padding: 10px 0;
+            z-index: 1000; box-shadow: 0 -5px 10px rgba(0,0,0,0.1);
+        }
+        .nav-item { text-align: center; color: #888; font-size: 0.6rem; cursor: pointer; transition: 0.3s; flex: 1; }
+        .nav-item i { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--tet-red); font-weight: bold; transform: translateY(-5px); }
+        .nav-item.active i { color: #FFD700; text-shadow: 0 0 5px red; }
+
+        /* --- SECTIONS --- */
+        section { display: none; padding: 15px; animation: fadeIn 0.5s; }
+        section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- HERO BANNER --- */
+        .hero-banner {
+            text-align: center; margin-top: 20px; padding: 30px 20px;
+            background: url('https://img.pikbest.com/backgrounds/20190418/traditional-chinese-pattern-festive-new-year-background_1876404.jpg!sw800') center/cover;
+            border-radius: 20px; border: 3px solid var(--tet-gold);
+            color: #fff; text-shadow: 2px 2px 4px #000;
+        }
+        .timer { 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            color: var(--tet-gold); 
+            margin: 10px 0;
+            font-variant-numeric: tabular-nums;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 2px 2px 0px #d60000;
+        }
+
+        /* --- CULTURE GRID --- */
+        .text-neon-green { color: #ccff00; text-shadow: 0 0 5px #006400; font-size: 1.5rem; text-align: center; margin-bottom: 15px; }
+        .text-neon-white { color: #b30000; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; }
+        
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding-bottom: 20px;
+        }
+        
+        .culture-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+            border: 1px solid var(--tet-gold);
+            cursor: pointer;
+            position: relative;
+        }
+        .culture-card:active { transform: scale(0.96); transition: 0.1s; }
+        .culture-card::after {
+            content: '\f0a6';
+            font-family: "Font Awesome 5 Free"; font-weight: 900;
+            position: absolute; top: 5px; right: 5px;
+            color: var(--tet-red); font-size: 1rem;
+            background: rgba(255,255,255,0.8); border-radius: 50%; width: 20px; height: 20px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .culture-img { width: 100%; height: 120px; object-fit: cover; border-bottom: 2px solid var(--tet-red); }
+        .culture-info { padding: 10px; background: #fff; height: 100%; }
+
+        /* POPUP MODAL */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 2000;
+            display: none; align-items: center; justify-content: center;
+            padding: 20px; backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: #fff; padding: 0; border-radius: 15px;
+            width: 100%; max-width: 400px;
+            position: relative; animation: zoomIn 0.3s;
+            overflow: hidden; border: 2px solid var(--tet-gold);
+        }
+        @keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        .modal-close {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(255,255,255,0.8); border: none;
+            width: 30px; height: 30px; border-radius: 50%;
+            font-weight: bold; cursor: pointer; z-index: 10;
+        }
+
+        /* --- FOOD & NEWS --- */
+        .text-neon-pink { color: #ff00de; text-shadow: 2px 2px 0px #fff; text-transform: uppercase; }
+        .text-neon-yellow { color: #ffff00; text-shadow: 1px 1px 2px #000; }
+        
+        .video-container {
+            position: relative; padding-bottom: 56.25%; 
+            height: 0; overflow: hidden; border-radius: 10px;
+            border: 2px solid var(--tet-gold); box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .youtube-embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .news-item {
+            display: block; text-decoration: none;
+            background: #fff; padding: 15px; margin-bottom: 15px;
+            border-radius: 10px; border-left: 5px solid var(--tet-red);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .news-item:active { background: #ffebeb; transform: translateX(5px); }
+        .news-source { font-size: 0.7rem; color: #888; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .news-item h3 { font-size: 1rem; color: #333; line-height: 1.4; }
+
+        /* --- GAME STYLES --- */
+        .game-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .game-card {
+            background: #fff; border-radius: 10px; padding: 15px;
+            text-align: center; cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-bottom: 4px solid var(--tet-red);
+        }
+        
+        /* O AN QUAN */
+        .oanquan-board {
+            border: 3px solid #8b4513; background: #f4d03f; padding: 5px; border-radius: 50px;
+            margin: 20px 0; position: relative; height: 160px;
+        }
+        .main-rows { 
+            display: flex; flex-direction: column; width: 76%; margin: 0 auto; height: 100%; justify-content: center;
+        }
+        .row-oq { display: flex; justify-content: space-between; }
+        .sq { 
+            width: 45px; height: 45px; border: 1px solid #8b4513; 
+            display: flex; align-items: center; justify-content: center; font-weight: bold;
+            cursor: pointer; background: rgba(255,255,255,0.4); border-radius: 5px;
+            transition: all 0.2s;
+        }
+        .mandarin {
+            position: absolute; top: 0; bottom: 0; width: 12%;
+            display: flex; align-items: center; justify-content: center;
+            background: #d35400; color: #fff; font-weight: bold; font-size: 1.2rem;
+            border: 2px solid #5e300d;
+        }
+        .mandarin.left { left: 0; border-radius: 50px 0 0 50px; }
+        .mandarin.right { right: 0; border-radius: 0 50px 50px 0; }
+        .sq.active-highlight { border: 2px solid red !important; background: #fff0f0 !important; transform: scale(1.1); box-shadow: 0 0 10px red; }
+        .sq.seed-falling { color: red; font-weight: 900; transform: scale(1.2); }
+
+        /* MUSIC */
+        .music-item {
+            display: flex; align-items: center; padding: 10px; border-bottom: 1px dashed #ccc;
+            cursor: pointer; transition: 0.2s;
+        }
+        .music-item:hover { background: #fff5e6; }
+        .music-thumb { width: 60px; height: 60px; border-radius: 5px; object-fit: cover; margin-right: 15px; }
+        .playing-indicator { margin-left: auto; color: var(--tet-red); display: none; }
+        .music-item.active .playing-indicator { display: block; }
+        .music-item.active h4 { color: var(--tet-red); }
+
+        /* TIC TAC TOE & BAU CUA */
+        .board-xo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-width: 250px; margin: 0 auto; }
+        .cell-xo { width: 70px; height: 70px; background: #fffde7; border: 2px solid #d60000; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: bold; cursor: pointer; }
+        .baucua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .baucua-item { border: 2px solid #ddd; border-radius: 10px; padding: 5px; cursor: pointer; position: relative; background: #fff; }
+        .baucua-item.selected { border-color: var(--tet-red); background: #ffe6e6; }
+        .bet-badge { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; line-height: 20px; display:none;}
+        .dice-result { display: flex; justify-content: center; gap: 15px; margin: 15px 0; min-height: 50px;}
+        .dice { width: 40px; height: 40px; background: #fff; border: 1px solid #ccc; display:flex; align-items:center; justify-content:center; border-radius:5px;}
+
+        /* LOTO STYLES (NEW) */
+        .loto-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            background: #FFD700;
+            padding: 5px;
+            border: 2px solid #d60000;
+            border-radius: 5px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .loto-cell {
+            background: #fff;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        .loto-cell.marked {
+            background: #d60000;
+            color: #fff;
+            border-color: #fff;
+        }
+        .loto-cell.empty {
+            background: #eee;
+            cursor: default;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-item active" onclick="switchTab('home', this)"><i class="fas fa-home"></i>Trang Chủ</div>
+        <div class="nav-item" onclick="switchTab('culture', this)"><i class="fas fa-globe-asia"></i>Văn Hóa</div>
+        <div class="nav-item" onclick="switchTab('cuisine', this)"><i class="fas fa-utensils"></i>Ẩm Thực</div>
+        <div class="nav-item" onclick="switchTab('games', this)"><i class="fas fa-gamepad"></i>Trò Chơi</div>
+        <div class="nav-item" onclick="switchTab('news', this)"><i class="fas fa-newspaper"></i>Báo Tết</div>
+        <div class="nav-item" onclick="switchTab('music', this)"><i class="fas fa-music"></i>Nhạc</div>
+    </nav>
+
+    <section id="home" class="active">
+        <div class="hero-banner">
+            <h1 class="font-heritage">XUÂN BÍNH NGỌ 2026</h1>
+            <p class="font-script" style="font-size: 1.5rem;">Cung Chúc Tân Xuân</p>
+            <div class="timer" id="countdown">LOADING...</div>
+        </div>
+
+        <div class="panel" style="margin-top: 20px;">
+            <h3 class="text-red font-heritage"><i class="fas fa-envelope-open-text"></i> Lời Chúc AI</h3>
+            <div style="display: flex; gap: 10px; margin: 15px 0;">
+                <select id="wish-target" style="padding:10px; border:1px solid var(--tet-gold); flex:1; border-radius:5px">
+                    <option value="boss">Sếp / Khách hàng</option>
+                    <option value="family">Gia đình</option>
+                    <option value="crush">Người yêu</option>
+                </select>
+                <button class="btn-tet" onclick="generateAIWish()">Tạo</button>
+            </div>
+            <div id="wish-result" style="font-style:italic; color:#555; min-height:40px;"></div>
+        </div>
+        
+        <div class="panel" style="text-align: center;" onclick="switchTab('spiritual', null)">
+             <h3 class="font-heritage">XIN XĂM ĐẦU NĂM</h3>
+             <p style="color:#666">Chạm để gieo quẻ ngay</p>
+             <div style="font-size: 3rem;">🎋</div>
+        </div>
+    </section>
+
+    <section id="culture">
+        <div style="margin-top: 30px;">
+            <h3 class="font-heritage text-neon-green">Một Chút Văn Hoá Độc Đáo</h3>
+            <p style="text-align:center; color:#fff; font-size:0.8rem; margin-bottom:10px; font-style:italic">Chạm vào thẻ để xem chi tiết</p>
+            
+            <div class="culture-grid">
+                
+                <div class="culture-card" onclick="openPopup('Người Kinh', 'https://image.vovworld.vn/w500/uploaded/vovworld/ovunhuo/2013_04_02/27113411.jpg', 'Tục Xông Đất, Hái Lộc đầu năm và mâm cỗ cúng gia tiên thể hiện lòng biết ơn tổ tiên.')">
+                    <img src="https://image.vovworld.vn/w500/uploaded/vovworld/ovunhuo/2013_04_02/27113411.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Kinh</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người H\'Mông', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYhqbM-paamNwgyKr6IPThB0lzonlSrETLHQ&s', 'Lễ hội Gầu Tào, ném pao, đánh quay và tiếng khèn gọi bạn tình trong không khí mùa xuân rẻo cao.')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYhqbM-paamNwgyKr6IPThB0lzonlSrETLHQ&s" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người H'Mông</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Thái', 'https://images.baodantoc.vn/uploads/2023/Thang-11/Ngay-5/Anh/untitled%20folder/untitled%20folder/untitled%20folder/5.jpg', 'Tục gội đầu chiều 30 Tết để rửa trôi xui xẻo năm cũ, cùng những điệu múa Xòe bên bếp lửa.')">
+                    <img src="https://images.baodantoc.vn/uploads/2023/Thang-11/Ngay-5/Anh/untitled%20folder/untitled%20folder/untitled%20folder/5.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Thái</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Dao', 'https://media.vietnamplus.vn/images/a59b0436a7ba1d4666d8a7b727fb23597947e6f4f5a0ee71edcd9c0094076641dc07d8ae6afc9ad0625386ba0754a32ee7bd8c9981109b302f8831e86118d8e5/ttxvn-nguoi-dao-xu-thanh9.jpg', 'Tết Nhảy (Nhiang chằm Đao) là nét văn hóa đặc sắc để tạ ơn Bàn Vương và tổ tiên.')">
+                    <img src="https://media.vietnamplus.vn/images/a59b0436a7ba1d4666d8a7b727fb23597947e6f4f5a0ee71edcd9c0094076641dc07d8ae6afc9ad0625386ba0754a32ee7bd8c9981109b302f8831e86118d8e5/ttxvn-nguoi-dao-xu-thanh9.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Dao</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Mường', 'https://dantocmiennui-media.baotintuc.vn/images/57c5aab70c5efc5a98d240302ffc6edb8fca6469476b8ca2f29dc3c9b68ff0be1cdd553a09705498cd648eff795d0b04d4807e750360ae563d7c61cd80d0ba9c/images925914_img_7940-1.JPG', 'Tục Hát sắc bùa chúc phúc đầu năm và tục Gọi trâu về ăn Tết độc đáo.')">
+                    <img src="https://dantocmiennui-media.baotintuc.vn/images/57c5aab70c5efc5a98d240302ffc6edb8fca6469476b8ca2f29dc3c9b68ff0be1cdd553a09705498cd648eff795d0b04d4807e750360ae563d7c61cd80d0ba9c/images925914_img_7940-1.JPG" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Mường</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Chứt', 'https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2024/8/10/z5717868124876fb2d157db3996b058ec28def5519d5cd-17232818172311058113968.jpg', 'Tết Lấp Lỗ (7/7 âm lịch) ăn mừng gieo hạt xong.')">
+                    <img src="https://suckhoedoisong.qltns.mediacdn.vn/324455921873985536/2024/8/10/z5717868124876fb2d157db3996b058ec28def5519d5cd-17232818172311058113968.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Chứt</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Ơ Đu', 'https://dantocmiennui-media.baotintuc.vn/images/84426cb421b40f0fbef0009243df48a9bb72d09ee861fd737fc91f09341b6f9147338d68eff846726e2ebd03df629234dbb2db660bc636751a6c1e6380f079c4/nguoiodu-760.jpg', 'Tết Tiếng Sấm (Cham Phtrong). Năm mới bắt đầu khi nghe tiếng sấm đầu tiên trong năm.')">
+                    <img src="https://dantocmiennui-media.baotintuc.vn/images/84426cb421b40f0fbef0009243df48a9bb72d09ee861fd737fc91f09341b6f9147338d68eff846726e2ebd03df629234dbb2db660bc636751a6c1e6380f079c4/nguoiodu-760.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Ơ Đu</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Xơ Đăng', 'https://vietnamhoc.net/wp-content/uploads/2020/09/dantoc-xdang-lehoi-nuoc-vietnamhoc.net_.jpg', 'Tổ chức Tết Giọt Nước (sửa sang máng nước đầu buôn) để cầu mong nguồn nước dồi dào, mùa màng tươi tốt.')">
+                    <img src="https://vietnamhoc.net/wp-content/uploads/2020/09/dantoc-xdang-lehoi-nuoc-vietnamhoc.net_.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Xơ Đăng</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Chu Ru, Cơ Ho, Chil', 'https://images.baodantoc.vn/uploads/2021/Th%C3%A1ng%208/Ng%C3%A0y_13/%C3%81nh/churu_mc3baa-truye1bb81n-the1bb91ng.jpg', 'Có phong tục "Bắt chồng" vào mùa xuân. Các cô gái sẽ chủ động mang lễ vật đến nhà trai để hỏi cưới.')">
+                    <img src="https://images.baodantoc.vn/uploads/2021/Th%C3%A1ng%208/Ng%C3%A0y_13/%C3%81nh/churu_mc3baa-truye1bb81n-the1bb91ng.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Chu Ru, Cơ Ho, Chil</h4>
+                    </div>
+                </div>
+                    <div class="culture-card" onclick="openPopup('Người Ba Na, Gia Rai, Ê Đê', 'https://media.vietnamplus.vn/images/7255a701687d11cb8c6bbc58a6c807850f4effde8ffbe08f935cabb97b3e3d50f7e9f581ae9f052ec4031dab417b923dcdb57feb901aea868e56e8a402356a73/trangphuc_9.jpg', 'Văn hoá cồng chiêng, "Lễ Đâm Trâu" (hiến sinh trâu để tạ ơn Yang/Thần linh) và uống rượu cần.')">
+                    <img src="https://media.vietnamplus.vn/images/7255a701687d11cb8c6bbc58a6c807850f4effde8ffbe08f935cabb97b3e3d50f7e9f581ae9f052ec4031dab417b923dcdb57feb901aea868e56e8a402356a73/trangphuc_9.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Ba Na, Gia Rai, Ê Đê</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Chăm', 'https://files.bdttg.gov.vn/contentfolder/ubdt/source_files/2015/11/04/10261048_ng%C6%B0%E1%BB%9Di%20ch%C4%83m_15-11-04.jpg', 'Chăm Bà-la-môn đón tết Kate (tháng 10). Chăm Hồi giáo (Bà Ni) đón tết Ramuwan.')">
+                    <img src="https://files.bdttg.gov.vn/contentfolder/ubdt/source_files/2015/11/04/10261048_ng%C6%B0%E1%BB%9Di%20ch%C4%83m_15-11-04.jpg" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Chăm</h4>
+                    </div>
+                </div>
+                <div class="culture-card" onclick="openPopup('Người Hoa', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNsUn_CVNMfi50Cz8SDkKk2sVA7qx-l2zkug&s', 'Đặc sắc với Múa lân sư rồng, dán câu đối đỏ, lì xì và các món ăn như sủi cảo, chè trôi nước.')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNsUn_CVNMfi50Cz8SDkKk2sVA7qx-l2zkug&s" class="culture-img">
+                    <div class="culture-info">
+                        <h4 class="text-neon-white">Người Hoa</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="cuisine">
+        <h2 class="font-heritage text-neon-green" style="text-align:center; color:#fff">BẢN ĐỒ ẨM THỰC</h2>
+        <div class="panel" style="margin-top: 20px;">
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">1. BÁNH CHƯNG (NGƯỜI KINH)</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/ZGs59VEu3hQ" title="YouTube video player" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Cách Làm Bánh Chưng Ngày Tết Đúng Chuẩn Hương Vị Truyền Thống.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">2. THẮNG CỐ (NGƯỜI H'MÔNG)</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/FJOrcxDI4dc" title="YouTube video player" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Hướng dẫn chi tiết cách nấu thắng cố ngựa - Trâu - Bò cực đơn giản.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">3. BÁNH TÉT TRÀ CUÔN</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/cuXYRicYw18" title="YouTube video player" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Tuyệt chiêu làm bánh tét Trà Cuôn dẻo thơm đúng chuẩn, ăn vào mê ngay.</p>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">4. THỊT TRÂU GÁC BẾP</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/sepCVFgvOYQ" title="Quy Trình Làm Thịt Trâu Gác Bếp" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Quy Trình Làm Thịt Trâu Gác Bếp - Chuẩn Thịt Trâu Khô Tây Bắc.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">5. KHÂU NHỤC</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/OV6tB-a2tdQ" title="Cách làm món Khâu Nhục" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Cách làm món Khâu Nhục sao cho ngon - Bếp Của Tui.</p>
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">6. THỊT LỢN CHUA (Ô SỈ)</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/ZfNIG9KCzeI" title="Cách làm món Thịt Lợn Chua" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Cách Làm Thịt Chua Đơn Giản Tại Nhà.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">7. CƠM LAM</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/OO_-wQY7LCk" title="Cách làm món Cơm Lam" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Cơm lam chấm muối lạc hương vị quê nhà ( Khao Lam ).</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h4 class="font-pixel text-neon-yellow">8. TUNG LÒ MÒ (LẠP XƯỞNG BÒ)</h4>
+                <div class="video-container">
+                    <iframe class="youtube-embed" src="https://www.youtube.com/embed/XD7oKb85NWE" title="Cách làm món Tung Lò Mò" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <p style="font-size:0.9rem; color:#333; margin-top:5px">Cách Làm Lạp Xưởng Bò (Tung Lò Mò) Chuẩn Vị Châu Đốc.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <h2 class="font-heritage text-neon-pink" style="text-align:center; margin-bottom:20px; color:#fff; text-shadow: 2px 2px 0 #000;">ĐIỂM TIN NGÀY TẾT</h2>
+        
+        <a href="https://baochinhphu.vn/" target="_blank" class="news-item">
+            <div class="news-source">CỔNG TTĐT CHÍNH PHỦ</div>
+            <h3>Chỉ thị về việc tăng cường các biện pháp bảo đảm đón Tết Nguyên đán Bính Ngọ 2026 vui tươi, lành mạnh.</h3>
+        </a>
+
+        <a href="https://vtv.vn/xa-hoi.htm" target="_blank" class="news-item">
+            <div class="news-source">VTV NEWS</div>
+            <h3>Không khí đón giao thừa tại các điểm cầu: Hà Nội, TP.HCM, Đà Nẵng rực rỡ pháo hoa.</h3>
+        </a>
+
+        <a href="https://vnexpress.net/kinh-doanh/start-up" target="_blank" class="news-item">
+            <div class="news-source">STARTUP VIỆT</div>
+            <h3>Xu hướng Start-up 2026: Ứng dụng AI lì xì và thuê người yêu trực tuyến "cháy hàng".</h3>
+        </a>
+
+        <a href="https://kenh14.vn/" target="_blank" class="news-item">
+            <div class="news-source">GEN Z TRENDS</div>
+            <h3>Bộ sưu tập áo dài cách tân "Cyberpunk" đang làm mưa làm gió trên TikTok.</h3>
+        </a>
+    </section>
+
+    <section id="games">
+        <h2 class="font-heritage text-red" style="text-align:center; margin-bottom: 15px;">HỘI CHỢ XUÂN</h2>
+        <div class="game-grid">
+            <div class="game-card" onclick="openGame('tictactoe')">
+                <i class="fas fa-times text-red" style="font-size:2rem;"></i>
+                <h4 style="margin-top:10px">Cờ Caro</h4>
+            </div>
+            <div class="game-card" onclick="openGame('baucua')">
+                <i class="fas fa-dice text-gold" style="font-size:2rem;"></i>
+                <h4 style="margin-top:10px">Bầu Cua</h4>
+            </div>
+            <div class="game-card" onclick="openGame('oanquan')">
+                <i class="fas fa-steaming text-red" style="font-size:2rem;"></i>
+                <h4 style="margin-top:10px">Ô Ăn Quan</h4>
+            </div>
+            <div class="game-card" onclick="openGame('loto')">
+                <i class="fas fa-ticket-alt" style="font-size:2rem; color:#008080"></i>
+                <h4 style="margin-top:10px">Lô Tô</h4>
+            </div>
+        </div>
+
+        <div id="game-area" class="panel" style="margin-top: 20px; display: none;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px">
+                <h3 id="current-game-title" class="text-red font-heritage">GAME TITLE</h3>
+                <button onclick="closeGameArea()" style="background:none; border:none; font-size:1.2rem"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div id="ui-loto" style="display:none; text-align:center;">
+                <div style="background:#f0f0f0; padding:10px; border-radius:10px; margin-bottom:15px; border:2px solid var(--tet-red)">
+                    <p style="font-size:0.8rem; color:#555">CON SỐ GÌ ĐÂY...</p>
+                    <div id="loto-current-num" style="font-size:4rem; font-weight:bold; color:var(--tet-red); font-family:'VT323', monospace; height:60px; line-height:60px;">--</div>
+                    <p id="loto-slogan" style="font-style:italic; color:#888; height:20px; font-size:0.8rem">...</p>
+                </div>
+
+                <div style="margin-bottom:10px;">
+                    <button class="btn-tet" onclick="drawLotoNumber()">QUAY SỐ</button>
+                    <button class="btn-tet" style="background:#333; color:#fff" onclick="initLoto()">Ván Mới</button>
+                </div>
+
+                <p style="font-size:0.8rem; margin-bottom:5px;">Vé của bạn (Chạm vào số khi có kết quả):</p>
+                <div id="loto-ticket" class="loto-grid"></div>
+                
+                <div id="loto-history" style="margin-top:15px; font-size:0.7rem; color:#666; word-wrap:break-word; border-top:1px dashed #ccc; padding-top:5px">
+                    Đã ra: <span id="loto-drawn-list"></span>
+                </div>
+            </div>
+
+            <div id="ui-tictactoe" style="display:none;">
+                <div style="text-align:center; margin-bottom:10px">
+                    <button class="btn-tet" style="font-size:0.8rem; padding:5px 10px" onclick="setTicTacToeMode('pvp')">2 Người</button>
+                    <button class="btn-tet" style="font-size:0.8rem; padding:5px 10px; background: #333; color:#fff" onclick="setTicTacToeMode('bot')">Đấu Máy</button>
+                </div>
+                <div class="board-xo" id="board-xo"></div>
+                <p id="status-xo" style="text-align:center; margin-top:10px; font-weight:bold"></p>
+            </div>
+
+            <div id="ui-baucua" style="display:none; text-align:center;">
+                <p>Tiền vốn: <span id="money" class="text-red" style="font-weight:bold; font-size:1.2rem">1000</span> xu</p>
+                <div class="dice-result" id="dice-container">
+                    <div class="dice">?</div><div class="dice">?</div><div class="dice">?</div>
+                </div>
+                <div class="baucua-grid" id="bet-grid"></div>
+                <button class="btn-tet" onclick="playBauCua()">LẮC NGAY</button>
+                <p id="baucua-msg" style="margin-top:10px; font-size:0.9rem; color:blue"></p>
+            </div>
+
+            <div id="ui-oanquan" style="display:none; text-align:center;">
+                <div style="margin-bottom:10px; font-size:0.9rem">
+                    <span style="color:red; font-weight:bold">P1 (Dưới)</span> vs <span style="color:blue; font-weight:bold">P2 (Trên)</span>
+                </div>
+                
+                <div class="oanquan-board">
+                    <div class="mandarin left" id="oq-11">10</div>
+                    <div class="main-rows">
+                        <div class="row-oq" id="row-top">
+                            <div class="sq" id="oq-10" onclick="clickOQ(10)">5</div>
+                            <div class="sq" id="oq-9" onclick="clickOQ(9)">5</div>
+                            <div class="sq" id="oq-8" onclick="clickOQ(8)">5</div>
+                            <div class="sq" id="oq-7" onclick="clickOQ(7)">5</div>
+                            <div class="sq" id="oq-6" onclick="clickOQ(6)">5</div>
+                        </div>
+                        <div class="row-oq" id="row-bot" style="margin-top:5px">
+                            <div class="sq" id="oq-0" onclick="clickOQ(0)">5</div>
+                            <div class="sq" id="oq-1" onclick="clickOQ(1)">5</div>
+                            <div class="sq" id="oq-2" onclick="clickOQ(2)">5</div>
+                            <div class="sq" id="oq-3" onclick="clickOQ(3)">5</div>
+                            <div class="sq" id="oq-4" onclick="clickOQ(4)">5</div>
+                        </div>
+                    </div>
+                    <div class="mandarin right" id="oq-5">10</div>
+                </div>
+
+                <div id="oq-controls" style="visibility: hidden; margin-top: 15px;">
+                    <p style="font-size:0.8rem;">Chọn hướng đi cho ô <span id="selected-oq-idx" style="font-weight:bold;">...</span>:</p>
+                    <button class="btn-tet" style="padding:5px 15px; font-size:0.8rem" onclick="confirmMove(-1)">⬅ Trái</button>
+                    <button class="btn-tet" style="padding:5px 15px; font-size:0.8rem" onclick="confirmMove(1)">Phải ➡</button>
+                </div>
+
+                <div style="margin-top:20px; border-top:1px dashed #ccc; padding-top:10px">
+                    <div style="display:flex; justify-content:space-around">
+                        <div>P1: <span id="score-1" style="color:red; font-weight:bold">0</span></div>
+                        <div>P2: <span id="score-2" style="color:blue; font-weight:bold">0</span></div>
+                    </div>
+                    <p id="oq-status" style="font-size:0.8rem; font-style:italic; margin-top:5px; color:#666">Lượt của Người chơi 1</p>
+                    <button class="btn-tet" style="background:#333; color:#fff; font-size:0.7rem; margin-top:10px" onclick="resetOQ()">Reset Game</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="music">
+        <h2 class="font-heritage text-red" style="text-align: center; margin-bottom: 20px;">NHẠC XUÂN TUYỂN CHỌN</h2>
+        <div class="panel" style="padding: 0; overflow: hidden;">
+            <iframe id="main-player" width="100%" height="220" src="https://www.youtube.com/embed/NIyhIn9Tq58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="panel" style="padding: 10px;">
+            <div class="music-list" id="playlist-container"></div>
+        </div>
+    </section>
+
+    <section id="spiritual">
+        <h2 class="font-heritage text-red" style="text-align:center">XIN XĂM ĐẦU NĂM</h2>
+        <div class="panel" style="text-align:center; background-image: url('https://www.transparenttextures.com/patterns/black-scales.png');">
+            <div id="stick-box" style="font-size: 5rem; cursor:pointer; margin: 30px 0; transition:0.2s" onclick="shakeStick()">🎋</div>
+            <p>Lắc điện thoại hoặc chạm vào ống xăm</p>
+            <div id="fortune-result" style="display:none; margin-top:20px; border:2px solid var(--tet-red); padding:15px; background:#fff">
+                <h3 class="text-red font-heritage" id="fortune-name">THƯỢNG THƯỢNG CÁT</h3>
+                <p id="fortune-content" style="font-style:italic; margin:10px 0;">...</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="culture-modal" onclick="closePopup(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePopup()">×</button>
+            <img id="popup-img" src="" style="width:100%; height:250px; object-fit:cover;">
+            <div style="padding:20px;">
+                <h3 id="popup-title" class="text-red font-heritage" style="text-align:center; margin-bottom:10px;">TITLE</h3>
+                <p id="popup-desc" style="text-align:justify; line-height:1.5;">Description...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. UTILS ---
+        function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+        
+        // --- 2. COUNTDOWN (Tết 2026: 17/02/2026) ---
+        function updateTimer() {
+            const dest = new Date("Feb 17, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const diff = dest - now;
+
+            if (diff < 0) { 
+                document.getElementById("countdown").innerHTML = "CHÚC MỪNG NĂM MỚI!"; 
+                return; 
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const format = (num) => num < 10 ? `0${num}` : num;
+            document.getElementById("countdown").innerHTML = 
+                `${format(days)} <span style="font-size:1rem">ngày</span> ${format(hours)}:${format(minutes)}:${format(seconds)}`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // --- 3. NAVIGATION ---
+        function switchTab(id, el) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            if(el) {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                el.classList.add('active');
+            } else {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            }
+        }
+
+        // --- 4. POPUP CULTURE LOGIC ---
+        function openPopup(title, img, desc) {
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-img').src = img;
+            document.getElementById('popup-desc').innerText = desc;
+            document.getElementById('culture-modal').style.display = 'flex';
+        }
+        function closePopup(e) {
+            if (!e || e.target.id === 'culture-modal' || e.target.className === 'modal-close') {
+                document.getElementById('culture-modal').style.display = 'none';
+            }
+        }
+
+        // --- 5. MUSIC PLAYER ---
+        const songs = [
+            { id: 'NIyhIn9Tq58', title: 'Ấm Áp', artist: 'VAnh ft Phạm Nguyên Ngọc' },
+            { id: 'YGhE2HZ8g8M', title: 'Tết Này Con Sẽ Về', artist: 'Bùi Công Nam' },
+            { id: 'gOtfJ151ue4', title: 'Tết Đong Đầy', artist: 'Kay Trần' },
+            { id: 'Hzbr4jMxvBk', title: 'Bao Giờ Lấy Chồng', artist: 'Bích Phương' },
+            { id: 'Ct-VyuZKREs', title: 'Nhà Còn Thương Em Mà', artist: 'Phương Mĩ Chi' }, 
+            { id: 'wUPA2utaTnY', title: 'Tết Tấn Tới', artist: 'Trúc Nhân' },
+            { id: 'hjYOanJelUs', title: 'Vạn Sự Như Ý', artist: 'Trúc Nhân' }
+        ];
+
+        function renderPlaylist() {
+            const container = document.getElementById('playlist-container');
+            container.innerHTML = '';
+            songs.forEach(song => {
+                const div = document.createElement('div');
+                div.className = 'music-item';
+                div.onclick = () => playSong(song.id, div);
+                div.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${song.id}/0.jpg" class="music-thumb">
+                    <div class="music-info">
+                        <h4>${song.title}</h4>
+                        <p>${song.artist}</p>
+                    </div>
+                    <div class="playing-indicator"><i class="fas fa-volume-up"></i></div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        function playSong(id, el) {
+            document.getElementById('main-player').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+            document.querySelectorAll('.music-item').forEach(i => i.classList.remove('active'));
+            if(el) el.classList.add('active');
+        }
+        renderPlaylist();
+
+        // --- 6. GAME LOGIC ---
+        function openGame(game) {
+            document.getElementById('game-area').style.display = 'block';
+            ['ui-tictactoe', 'ui-baucua', 'ui-oanquan', 'ui-loto'].forEach(id => document.getElementById(id).style.display='none');
+            
+            if(game === 'tictactoe') {
+                document.getElementById('ui-tictactoe').style.display = 'block';
+                document.getElementById('current-game-title').innerText = "CỜ CARO";
+                resetTicTacToe();
+            } else if (game === 'baucua') {
+                document.getElementById('ui-baucua').style.display = 'block';
+                document.getElementById('current-game-title').innerText = "BẦU CUA TÔM CÁ";
+                initBauCua();
+            } else if (game === 'oanquan') {
+                document.getElementById('ui-oanquan').style.display = 'block';
+                document.getElementById('current-game-title').innerText = "Ô ĂN QUAN";
+                resetOQ();
+            } else if (game === 'loto') {
+                document.getElementById('ui-loto').style.display = 'block';
+                document.getElementById('current-game-title').innerText = "HỘI LÔ TÔ";
+                initLoto();
+            }
+        }
+        function closeGameArea() { document.getElementById('game-area').style.display = 'none'; }
+
+        /* --- LOTO LOGIC --- */
+        let lotoTicket = [];
+        let drawnNumbers = [];
+        let lotoMarked = 0;
+
+        function initLoto() {
+            lotoTicket = [];
+            drawnNumbers = [];
+            lotoMarked = 0;
+            document.getElementById('loto-current-num').innerText = "--";
+            document.getElementById('loto-slogan').innerText = "Mời bạn quay số!";
+            document.getElementById('loto-slogan').style.color = "#888";
+            document.getElementById('loto-drawn-list').innerText = "";
+            
+            // Random 15 số từ 1-90
+            let pool = Array.from({length: 90}, (_, i) => i + 1);
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+            lotoTicket = pool.slice(0, 15).sort((a,b) => a-b);
+            renderLotoTicket();
+        }
+
+        function renderLotoTicket() {
+            const grid = document.getElementById('loto-ticket');
+            grid.innerHTML = '';
+            lotoTicket.forEach(num => {
+                const cell = document.createElement('div');
+                cell.className = 'loto-cell';
+                cell.innerText = num;
+                cell.id = `loto-cell-${num}`;
+                cell.onclick = () => checkLotoNum(num);
+                grid.appendChild(cell);
+            });
+        }
+
+        function drawLotoNumber() {
+            if (drawnNumbers.length >= 90) { alert("Đã quay hết số!"); return; }
+            
+            let count = 0;
+            const interval = setInterval(() => {
+                document.getElementById('loto-current-num').innerText = Math.floor(Math.random() * 90) + 1;
+                count++;
+                if(count > 10) {
+                    clearInterval(interval);
+                    finalizeDraw();
+                }
+            }, 50);
+        }
+
+        function finalizeDraw() {
+            let num;
+            do { num = Math.floor(Math.random() * 90) + 1; } while (drawnNumbers.includes(num));
+            
+            drawnNumbers.push(num);
+            document.getElementById('loto-current-num').innerText = num;
+            document.getElementById('loto-drawn-list').innerText = drawnNumbers.join(', ');
+            
+            const slogans = ["Cờ ra con mấy, con mấy gì đây!", "Số gì đây số gì đây!", "Lẳng lặng mà nghe, tôi kêu con cờ ra"];
+            document.getElementById('loto-slogan').innerText = slogans[Math.floor(Math.random() * slogans.length)];
+        }
+
+        function checkLotoNum(num) {
+            if (drawnNumbers.includes(num)) {
+                const cell = document.getElementById(`loto-cell-${num}`);
+                if (!cell.classList.contains('marked')) {
+                    cell.classList.add('marked');
+                    lotoMarked++;
+                    if (lotoMarked === 15) {
+                        document.getElementById('loto-slogan').innerText = "🎉 KINH RỒI! CHÚC MỪNG BẠN! 🎉";
+                        document.getElementById('loto-slogan').style.color = "red";
+                        alert("CHÚC MỪNG! BẠN ĐÃ KINH (CHIẾN THẮNG)!");
+                    }
+                }
+            } else {
+                alert("Số này chưa được quay! Đừng ăn gian nhé ^^");
+            }
+        }
+
+
+        /* --- TIC TAC TOE --- */
+        let xoBoard = Array(9).fill(''); let xoTurn = 'X'; let xoActive = true; let xoMode = 'pvp';
+        function setTicTacToeMode(mode) { xoMode = mode; resetTicTacToe(); document.getElementById('status-xo').innerText = mode === 'bot' ? "Chế độ: Đấu với Máy" : "Chế độ: 2 Người"; }
+        function renderXO() {
+            const div = document.getElementById('board-xo'); div.innerHTML = '';
+            xoBoard.forEach((cell, i) => {
+                const btn = document.createElement('div'); btn.className = 'cell-xo'; btn.innerText = cell;
+                btn.style.color = cell === 'X' ? 'red' : 'blue'; btn.onclick = () => moveXO(i);
+                div.appendChild(btn);
+            });
+        }
+        function moveXO(i) {
+            if(!xoActive || xoBoard[i] !== '') return;
+            xoBoard[i] = xoTurn; renderXO();
+            if(checkXOWin(xoTurn)) { document.getElementById('status-xo').innerText = `${xoTurn} THẮNG!`; xoActive = false; return; }
+            if(!xoBoard.includes('')) { document.getElementById('status-xo').innerText = "HÒA!"; xoActive = false; return; }
+            xoTurn = xoTurn === 'X' ? 'O' : 'X';
+            if(xoMode === 'bot' && xoTurn === 'O' && xoActive) setTimeout(botMoveXO, 500);
+        }
+        function botMoveXO() {
+            let empty = xoBoard.map((e, i) => e === '' ? i : null).filter(e => e !== null);
+            if(empty.length > 0) moveXO(empty[Math.floor(Math.random() * empty.length)]);
+        }
+        function checkXOWin(p) { return [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(w => xoBoard[w[0]] === p && xoBoard[w[1]] === p && xoBoard[w[2]] === p); }
+        function resetTicTacToe() { xoBoard.fill(''); xoTurn = 'X'; xoActive = true; renderXO(); }
+
+        /* --- BAU CUA --- */
+        const bcItems = ['bau', 'cua', 'tom', 'ca', 'ga', 'huou'];
+        let userMoney = 1000; let bets = {};
+        function initBauCua() {
+            const grid = document.getElementById('bet-grid'); grid.innerHTML = '';
+            bcItems.forEach(item => {
+                bets[item] = 0;
+                const div = document.createElement('div'); div.className = 'baucua-item'; div.id = `bc-${item}`;
+                div.innerHTML = `<div class="bet-badge" id="badge-${item}">0</div><div style="font-size:1.5rem; padding:10px;">${item.toUpperCase()}</div>`;
+                div.onclick = () => placeBet(item); grid.appendChild(div);
+            });
+            document.getElementById('money').innerText = userMoney;
+        }
+        function placeBet(item) {
+            if(userMoney >= 100) { userMoney -= 100; bets[item] += 100; updateBetUI(item); document.getElementById('money').innerText = userMoney; }
+        }
+        function updateBetUI(item) {
+            const badge = document.getElementById(`badge-${item}`);
+            if(bets[item] > 0) { badge.style.display = 'block'; badge.innerText = bets[item]/100; document.getElementById(`bc-${item}`).classList.add('selected'); }
+        }
+        function playBauCua() {
+            if(Object.values(bets).reduce((a,b)=>a+b,0) === 0) { alert("Bạn chưa cược!"); return; }
+            const res = [bcItems[Math.floor(Math.random()*6)], bcItems[Math.floor(Math.random()*6)], bcItems[Math.floor(Math.random()*6)]];
+            document.getElementById('dice-container').innerHTML = res.map(r => `<div class="dice">${r.toUpperCase()}</div>`).join('');
+            let win = 0; res.forEach(r => { if(bets[r] > 0) win += bets[r] * 2; }); 
+            userMoney += win;
+            document.getElementById('baucua-msg').innerText = win > 0 ? `Thắng ${win} xu!` : "Thua rồi!";
+            document.getElementById('money').innerText = userMoney;
+            Object.keys(bets).forEach(k => bets[k] = 0);
+            document.querySelectorAll('.bet-badge').forEach(b => b.style.display='none');
+            document.querySelectorAll('.baucua-item').forEach(i => i.classList.remove('selected'));
+        }
+
+        /* --- O AN QUAN --- */
+        let oqBoard = []; let oqTurn = 1; let oqScore = [0, 0]; let oqSelected = -1; let isAnimating = false;
+
+        function resetOQ() {
+            oqBoard = [5, 5, 5, 5, 5, 10, 5, 5, 5, 5, 5, 10];
+            oqTurn = 1; oqScore = [0, 0]; isAnimating = false;
+            document.getElementById('oq-controls').style.visibility = 'hidden';
+            renderOQBoard();
+            updateOQStatus(`Lượt của Người chơi ${oqTurn}`);
+        }
+
+        function renderOQBoard() {
+            oqBoard.forEach((val, idx) => {
+                const el = document.getElementById(`oq-${idx}`);
+                if(el) { el.innerText = val; el.classList.remove('active-highlight', 'seed-falling'); }
+            });
+            document.getElementById('score-1').innerText = oqScore[0];
+            document.getElementById('score-2').innerText = oqScore[1];
+        }
+
+        function clickOQ(idx) {
+            if (isAnimating) return;
+            if (oqTurn === 1 && (idx < 0 || idx > 4)) { alert("Lượt của P1 (Hàng dưới)!"); return; }
+            if (oqTurn === 2 && (idx < 6 || idx > 10)) { alert("Lượt của P2 (Hàng trên)!"); return; }
+            if (oqBoard[idx] === 0) return;
+            renderOQBoard();
+            document.getElementById(`oq-${idx}`).classList.add('active-highlight');
+            oqSelected = idx;
+            document.getElementById('selected-oq-idx').innerText = idx;
+            document.getElementById('oq-controls').style.visibility = 'visible';
+        }
+
+        async function confirmMove(direction) {
+            document.getElementById('oq-controls').style.visibility = 'hidden';
+            isAnimating = true;
+            let cur = oqSelected;
+            let hand = oqBoard[cur];
+            
+            oqBoard[cur] = 0; updateOQCell(cur); await sleep(300);
+
+            while (true) {
+                while (hand > 0) {
+                    cur += direction;
+                    if (cur > 11) cur = 0; if (cur < 0) cur = 11;
+                    oqBoard[cur]++; hand--;
+                    updateOQCell(cur, true); await sleep(300);
+                }
+                if (cur === 5 || cur === 11) break; 
+                
+                let next = cur + direction;
+                if (next > 11) next = 0; if (next < 0) next = 11;
+
+                if (oqBoard[next] > 0) { 
+                    hand = oqBoard[next]; oqBoard[next] = 0; cur = next;
+                    const el = document.getElementById(`oq-${next}`);
+                    el.style.transform = "scale(0.8)"; await sleep(200);
+                    updateOQCell(next); el.style.transform = "scale(1)"; await sleep(300);
+                } else { 
+                    let target = next + direction;
+                    if (target > 11) target = 0; if (target < 0) target = 11;
+                    if (oqBoard[target] > 0) {
+                        let pts = oqBoard[target]; oqBoard[target] = 0; oqScore[oqTurn - 1] += pts;
+                        const el = document.getElementById(`oq-${target}`);
+                        el.style.backgroundColor = "yellow"; el.innerText = "0"; await sleep(500); el.style.backgroundColor = "";
+                        renderOQBoard(); updateOQStatus(`ĂN ${pts} QUÂN!`); await sleep(500);
+                    } else { updateOQStatus("Chặn 2 đầu!"); }
+                    break;
+                }
+            }
+
+            checkWinCondition();
+            if (isAnimating) {
+                oqTurn = oqTurn === 1 ? 2 : 1;
+                updateOQStatus(`Đổi lượt: Người chơi ${oqTurn}`);
+                isAnimating = false;
+                let s = oqTurn === 1 ? 0 : 6; let e = oqTurn === 1 ? 4 : 10;
+                let sum = 0; for(let i=s; i<=e; i++) sum += oqBoard[i];
+                if(sum === 0) {
+                    oqScore[oqTurn-1] -= 5;
+                    for(let i=s; i<=e; i++) oqBoard[i] = 1;
+                    updateOQStatus(`Hết quân! P${oqTurn} vay 5 quân (-5 điểm)`);
+                    renderOQBoard();
+                }
+            }
+        }
+
+        function updateOQCell(idx, highlight=false) {
+            const el = document.getElementById(`oq-${idx}`);
+            if(el) { el.innerText = oqBoard[idx]; if(highlight) { el.classList.add('seed-falling'); setTimeout(()=>el.classList.remove('seed-falling'), 300); } }
+        }
+        function updateOQStatus(msg) { document.getElementById('oq-status').innerText = msg; }
+        
+        function checkWinCondition() {
+            if (oqBoard[5] === 0 && oqBoard[11] === 0) {
+                isAnimating = false;
+                let p1 = 0, p2 = 0; for(let i=0; i<=4; i++) p1 += oqBoard[i]; for(let i=6; i<=10; i++) p2 += oqBoard[i];
+                oqScore[0] += p1; oqScore[1] += p2;
+                for(let i=0; i<12; i++) oqBoard[i] = 0; renderOQBoard();
+                let w = oqScore[0] > oqScore[1] ? "P1" : (oqScore[1] > oqScore[0] ? "P2" : "HÒA");
+                alert(`KẾT THÚC!\nP1: ${oqScore[0]} - P2: ${oqScore[1]}\n${w} THẮNG!`);
+            }
+        }
+
+        // --- 7. AI WISH ---
+        function generateAIWish() {
+            const t = document.getElementById('wish-target').value;
+            let w = ["Vạn sự như ý - Tỷ sự như mơ", "Tiền vào như nước - Tiền ra nhỏ giọt"];
+            if(t==='boss') w=["Năm mới KPI tự đạt, doanh số bay cao!", "Sếp ơi lì xì to, cả năm no đủ!"];
+            if(t==='crush') w=["Tết này vẫn một mình, nếu em cũng thế thì mình yêu đi?", "Vector chỉ một chiều, anh chỉ yêu một người."];
+            document.getElementById('wish-result').innerHTML = `"${w[Math.floor(Math.random()*w.length)]}"`;
+        }
+
+        // --- 8. SHAKE STICK ---
+        function shakeStick() {
+            const b = document.getElementById('stick-box');
+            b.style.transform = "rotate(20deg)";
+            setTimeout(() => b.style.transform = "rotate(-20deg)", 100);
+            setTimeout(() => b.style.transform = "rotate(0deg)", 300);
+            setTimeout(() => {
+                const r = [{n:"ĐẠI CÁT",c:"Làm gì cũng thắng"}, {n:"TRUNG BÌNH",c:"Cần kiên nhẫn"}, {n:"QUÝ NHÂN",c:"Có người giúp đỡ"}, {n:"ĐÀO HOA",c:"Tình duyên tới tấp"}];
+                const res = r[Math.floor(Math.random()*r.length)];
+                document.getElementById('fortune-result').style.display = 'block';
+                document.getElementById('fortune-name').innerText = res.n;
+                document.getElementById('fortune-content').innerText = res.c;
+            }, 500);
+        }
+    </script>
+</body>
+</html>
